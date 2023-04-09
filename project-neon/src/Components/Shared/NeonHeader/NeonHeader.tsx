@@ -1,10 +1,14 @@
-import { AppBar, Box, ClickAwayListener, Icon, IconButton, Input, InputAdornment, Paper, Popper, Slide, Toolbar, useMediaQuery } from '@mui/material';
+import { AppBar, Avatar, Box, ClickAwayListener, Icon, IconButton, Input, InputAdornment, Paper, Popper, Slide, Toolbar, Typography, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import React from 'react';
+import AppsIcon from '@mui/icons-material/Apps';
 import MenuIcon from '@mui/icons-material/Menu';
-
-
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import HelpIcon from '@mui/icons-material/Help';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons';
+import PersonIcon from '@mui/icons-material/Person';
 export interface NeonHeaderProps {
     NeonLeftMenu?: React.ReactElement;
     NeonTabControl?: React.ReactElement;
@@ -92,14 +96,19 @@ const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
         console.log('privilege loc2');
     })
 
-
     const handleLeftMenu = (flag?: boolean) => {
         flag === true ? setLeftMenuIsOpen(flag) : setLeftMenuIsOpen(!leftMenuIsOpen);
     }
 
+    const handleAppIconClick = (event: any) => { }
+    const handleNotificationIconClick = () => { }
+    const handleHelpIconClick = () => { }
+    const handleUserIconClick = () => { }
+
     const handleOnClickTextField = () => {
         setIsSearchBarExpanded(true);
     }
+    const expandTextField = () => { }
 
     const clearTextField = () => {
         setSearchValue('');
@@ -155,12 +164,18 @@ const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
         ));
 
     const contextMemo = React.useMemo(() => ({ openDrawer: leftMenuIsOpen, setOpenDrawer: (arg0: boolean) => handleLeftMenu(arg0), }), [leftMenuIsOpen]);
+
+    function toggleFullScreen() {
+        document.fullscreenElement == null ? document.documentElement.requestFullscreen() : document.exitFullscreen();
+    }
+
+
     return (
         <>
             <HeaderContext.Provider value={contextMemo}>
                 {NeonLeftMenu}
             </HeaderContext.Provider>
-            <AppBar sx={{ height }} className='appBar'>
+            <AppBar sx={{ height}} className='appBar' >
                 <Toolbar disableGutters sx={{ height }} className='toolbar'>
                     <Box sx={{ display: 'flex', alignItems: 'center', maxWidth: '20rem' }}>
                         {/* <Box > //component="img" data-testid='logo' height={height} src={'../assets/headerIcon.svg'} alt='logo not provided'> */}
@@ -177,11 +192,57 @@ const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
                             {!isSearchBarExpanded && (
                                 <Box sx={{ width: '100%', maxWidth: `calc(100% - ${containerRef.current?.clientWidth}px - 2.73rem - ${iconDivWidth}rem)`, marginLeft: '0.2rem' }}>{NeonTabControl} </Box>
                             )} {getTopSearchBar()}
+                            <Box
+                                sx={{ display: 'flex', alignItems: 'center', }} ref={containerRef}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    {
+                                        IsSearchBarRequired && !isSearchBarExpanded && (<IconButton data-testid='search-icon' className='icon' onClick={expandTextField}><SearchIcon sx={{ fontSize: iconSize }} /></IconButton>)
+                                    }
+                                    {
+                                        AppComponent && (<IconButton data-testid='app-icon' className='icon' onClick={handleAppIconClick}><AppsIcon sx={{ fontSize: iconSize }} /> </IconButton>)
+                                    }
+                                    {
+                                        NotificationComponent && (<IconButton data-testid='notification-icon' className='icon' onClick={handleNotificationIconClick}><NotificationsIcon sx={{ fontSize: iconSize }} /></IconButton>)
+                                    }
+                                    {
+                                        HelpComponent && (<IconButton data-testid='help-icon' className='icon' onClick={handleHelpIconClick} sx={{ padding: '0.5rem' }}><HelpIcon sx={{ fontSize: iconSize }} /></IconButton>)
+                                    }
+                                    {
+                                        toggleFullScreenRequired && (<IconButton data-testid='fullscreen-icon' className='icon' onClick={() => { toggleFullScreen(); }}><FontAwesomeIcon style={{ fontSize: fullScreenIconSize, padding: '2px' }} icon={faUpRightAndDownLeftFromCenter} /></IconButton>)
+                                    }
+                                </Box>
+
+                                <Box data-testid='user-details' sx={{ height, display: 'flex', alignItems: 'center', marginLeft: '7px', justifyContent: 'space-between' }} onClick={handleUserIconClick}>
+                                    <Typography sx={{ padding: '0', fontSize: `calc(${iconSize})`, color: '#D8D8D8' }} />
+                                    <Box sx={{ display: 'flex', height, gap: '0', padding: '0', alignItems: 'center', margin: '0 0.5vw' }}>
+                                        <IconButton data-testid='user-icon' className='icon'><Avatar className='user-icon-avatar'><PersonIcon sx={{ fontSize: iconSize }} /></Avatar> </IconButton>
+                                        <Box sx={{ textAlign: 'left', padding: '0.5rem', cursor: 'pointer', gap: '0.5rem' }}>
+                                            <Typography className='userDivFont' sx={{ color: 'rgb(15,15,93)', fontWeight: 'normal', marginBottom: '2px' }}>{userTitle}</Typography>
+                                            <Box sx={{ bgcolor: '#a0974f', width: 'max-content', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
+                                                <Box className='userDivFont buildVersionDiv'> {buildVersion}</Box>
+                                            </Box>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                            </Box>
+
                         </Box>
                     </Box>
 
                 </Toolbar>
             </AppBar>
+
+            <Popper open={!!anchorElApp} anchorEl={anchorElApp} placement='bottom-start' >
+                <ClickAwayListener onClickAway={(event) => { handleAppIconClick(event); }}><Box>{AppComponent}</Box></ClickAwayListener>
+            </Popper>
+
+            <Popper open={!!anchorElNotification} anchorEl={anchorElNotification} placement='bottom-start'>
+                <ClickAwayListener onClickAway={handleNotificationIconClick}><Box>{NotificationComponent}</Box></ClickAwayListener>
+            </Popper>
+           
+            <Popper open={!!anchorElUser} anchorEl={anchorElUser} placement='bottom-start'>
+                <ClickAwayListener onClickAway={handleUserIconClick}><Box>{UserComponent}</Box></ClickAwayListener>
+            </Popper>
         </>
     )
 }

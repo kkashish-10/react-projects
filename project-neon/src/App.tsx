@@ -1,14 +1,15 @@
 import react from "react";
 import Card from "@mui/material/Card";
 import NeonFooter from "./Components/Shared/NeonFooter";
-import NeonHeader from "./Components/Shared/NeonHeader";
+import NeonHeader from "./Components/Shared/NeonHeader/NeonHeader";
 import NeonLeftMenu from "./Components/Shared/NeonLeftMenu/components/NeonLeftMenu";
 import { leftMenuItemType } from "./Components/Shared/NeonLeftMenu/components/models";
-
+import { ThemeProvider } from "@mui/material/styles";
+import { NeonTheme } from './Components/Theme/NeonTheme';
 
 function App() {
-  const [searchValue, setSearchValue] = react.useState('');
 
+  const [searchValue, setSearchValue] = react.useState('');
   const leftMenuDataObj = {
     all: [
       {
@@ -44,35 +45,36 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <NeonHeader
-          onSearchFieldChange={onSearchFieldChange}
-          userTitle='Kashish'
-          buildVersion="DEV"
-          AppComponent={<Card />}
-          NotificationComponent={<Card />}
-          HelpComponent={"https://github.com/kkashish-10"}
-          UserComponent={<Card />}
-          toggleFullScreenRequired={true}
-          NeonTabControl={<div>Kashish</div>}
-          NeonLeftMenu={
-            <NeonLeftMenu
-              data={leftMenuDataObj}
-              onClickCallback={onClickHandler}
-              pageId="leftMenu"
-              onBookmarksChangeCallback={onBookmarksChangeHandler}
-              productImage=""
-            />}
-        />
-      </header>
-      <div id='kashish'>
+      <ThemeProvider theme={NeonTheme}>
+        <header className="App-header">
+          <NeonHeader
+            onSearchFieldChange={onSearchFieldChange}
+            userTitle='Kashish'
+            buildVersion="DEV"
+            AppComponent={<Card />}
+            NotificationComponent={<Card />}
+            HelpComponent={"https://github.com/kkashish-10"}
+            UserComponent={<Card />}
+            toggleFullScreenRequired={true}
+            NeonTabControl={<div>Kashish</div>}
+            NeonLeftMenu={
+              <NeonLeftMenu
+                data={leftMenuDataObj}
+                onClickCallback={onClickHandler}
+                pageId="leftMenu"
+                onBookmarksChangeCallback={onBookmarksChangeHandler}
+                productImage=""
+              />}
+          />
+        </header>
+        <div id='kashish'>
 
-        hi this is kashish
-      </div>
-      <footer>
-        <NeonFooter />
-      </footer>
-
+          hi this is kashish
+        </div>
+        <footer>
+          <NeonFooter />
+        </footer>
+      </ThemeProvider>
     </div>
   );
 }
