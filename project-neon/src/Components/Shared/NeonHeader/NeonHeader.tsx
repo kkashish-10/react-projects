@@ -28,7 +28,7 @@ export const HeaderContext = React.createContext({
     openDrawer: false, setOpenDrawer: (arg0: boolean) => { },
 });
 
-type Props = {}
+// type Props = {} not required yet
 
 const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
     const {
@@ -175,7 +175,7 @@ const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
             <HeaderContext.Provider value={contextMemo}>
                 {NeonLeftMenu}
             </HeaderContext.Provider>
-            <AppBar sx={{ height}} className='appBar' >
+            <AppBar sx={{ height }} className='appBar' >
                 <Toolbar disableGutters sx={{ height }} className='toolbar'>
                     <Box sx={{ display: 'flex', alignItems: 'center', maxWidth: '20rem' }}>
                         {/* <Box > //component="img" data-testid='logo' height={height} src={'../assets/headerIcon.svg'} alt='logo not provided'> */}
@@ -239,7 +239,7 @@ const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
             <Popper open={!!anchorElNotification} anchorEl={anchorElNotification} placement='bottom-start'>
                 <ClickAwayListener onClickAway={handleNotificationIconClick}><Box>{NotificationComponent}</Box></ClickAwayListener>
             </Popper>
-           
+
             <Popper open={!!anchorElUser} anchorEl={anchorElUser} placement='bottom-start'>
                 <ClickAwayListener onClickAway={handleUserIconClick}><Box>{UserComponent}</Box></ClickAwayListener>
             </Popper>
