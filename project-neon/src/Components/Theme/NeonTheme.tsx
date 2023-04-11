@@ -4,7 +4,7 @@ export const NeonTheme: styles.Theme = styles.createTheme({
     palette: {
         mode: 'light',
         primary: {
-            main: '#3f51b5',
+            main: '#ffffff',
         },
         secondary: {
             main: '#f50057',
