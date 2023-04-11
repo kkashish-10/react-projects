@@ -184,7 +184,6 @@ const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
                                 !isSearchBarExpanded && (<IconButton data-testid='menu-icon' sx={{ color: '#474a73', marginLeft: '5px' }} onClick={() => { handleLeftMenu(); }}>
                                     {/* <FontAwesomeIcon style={{ fontSize: fullScreenIconSize, padding: '2px' }} icon={faBars} /> */}
                                     <MenuIcon />
-
                                 </IconButton>)
                             }
                         </Box>
