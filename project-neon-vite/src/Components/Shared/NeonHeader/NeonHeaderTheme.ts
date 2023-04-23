@@ -23,13 +23,13 @@ const NeonHeaderTheme = {
         },
         '.user-icon-avatar': {
             backgroundColor: '#474a73',
-            width: '1.5rem',
+            width: '1rem',
             // eslint-disable-next-line no-useless-computed-key
-            ['@media (max-width:1920px)']: { width: '1.5rem', height: '1.5rem' },
+            ['@media (max-width:1920px)']: { width: '1rem', height: '1rem' },
             // eslint-disable-next-line no-useless-computed-key
-            ['@media (max-width:1600px)']: { width: '1.5rem', height: '1.5rem' },
+            ['@media (max-width:1600px)']: { width: '1rem', height: '1rem' },
             // eslint-disable-next-line no-useless-computed-key
-            ['@media (max-width:1366px)']: { width: '1.4rem', height: '1.4rem' }
+            ['@media (max-width:1366px)']: { width: '1rem', height: '1.4rem' }
         },
         // eslint-disable-next-line no-useless-computed-key
         ['@media (max-width:1920px)']: {

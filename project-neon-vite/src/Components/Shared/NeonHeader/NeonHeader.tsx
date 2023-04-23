@@ -25,7 +25,7 @@ export interface NeonHeaderProps {
 }
 
 export const HeaderContext = React.createContext({
-    openDrawer: false, setOpenDrawer: (arg0: boolean) => {console.log('drawer open') },
+    openDrawer: false, setOpenDrawer: (arg0: boolean) => { console.log('drawer open') },
 });
 
 // type Props = {} not required yet
@@ -67,8 +67,8 @@ const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
     const isLessThan1366 = useMediaQuery('(max0width: 1366px)');
 
     let height = '3.563rem';
-    let iconSize = '1.54rem';
-    let fullScreenIconSize = '1rem';
+    let iconSize = '1.3rem';
+    let fullScreenIconSize = '1.3rem';
     let adjustedSearchWidth = '7rem';
     if (isLessThan1366) {
         height = '2.813rem';
@@ -100,7 +100,8 @@ const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
         flag === true ? setLeftMenuIsOpen(flag) : setLeftMenuIsOpen(!leftMenuIsOpen);
     }
 
-    const handleAppIconClick = (event: any) => { }
+    const handleAppIconClick = (event: any) => {
+    }
     const handleNotificationIconClick = () => { }
     const handleHelpIconClick = () => { }
     const handleUserIconClick = () => { }
@@ -189,7 +190,7 @@ const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
                         </Box>
                         <Box sx={{ display: 'flex', width: isSearchBarExpanded ? 'calc(100vw)' : `calc(100vw -${adjustedSearchWidth})`, justifyContent: 'space-between', alignItems: 'center' }}>
                             {!isSearchBarExpanded && (
-                                <Box sx={{ width: '100%', maxWidth: `calc(100% - ${containerRef.current?.clientWidth}px - 2.73rem - ${iconDivWidth}rem)`, marginLeft: '0.2rem' }}>{NeonTabControl} </Box>
+                                <Box sx={{ width: '100%', maxWidth: `calc(100% - ${containerRef.current?.clientWidth}px - 2.73rem - ${iconDivWidth}rem)`, margin: '1rem', padding: '2rem' }}>{NeonTabControl} </Box>
                             )} {getTopSearchBar()}
                             <Box
                                 sx={{ display: 'flex', alignItems: 'center', }} ref={containerRef}>
@@ -207,14 +208,14 @@ const NeonHeader: React.FC<NeonHeaderProps> = (props): JSX.Element => {
                                         HelpComponent && (<IconButton data-testid='help-icon' className='icon' onClick={handleHelpIconClick} sx={{ padding: '0.5rem' }}><HelpIcon sx={{ fontSize: iconSize }} /></IconButton>)
                                     }
                                     {
-                                        toggleFullScreenRequired && (<IconButton data-testid='fullscreen-icon' className='icon' onClick={() => { toggleFullScreen(); }}><FullscreenIcon sx={{ fontSize: iconSize }} /></IconButton>)
+                                        toggleFullScreenRequired && (<IconButton data-testid='fullscreen-icon' className='icon' onClick={() => { toggleFullScreen(); }}><FullscreenIcon sx={{ fontSize: fullScreenIconSize }} /></IconButton>)
                                     }
                                 </Box>
 
                                 <Box data-testid='user-details' sx={{ height, display: 'flex', alignItems: 'center', marginLeft: '7px', justifyContent: 'space-between' }} onClick={handleUserIconClick}>
                                     <Typography sx={{ padding: '0', fontSize: `calc(${iconSize})`, color: '#D8D8D8' }} />
                                     <Box sx={{ display: 'flex', height, gap: '0', padding: '0', alignItems: 'center', margin: '0 0.5vw' }}>
-                                        <IconButton data-testid='user-icon' className='icon'><Avatar className='user-icon-avatar'><PersonIcon sx={{ fontSize: iconSize }} /></Avatar> </IconButton>
+                                        <IconButton data-testid='user-icon' className='icon' sx={{ fontSize: iconSize }}><Avatar className='user-icon-avatar'><PersonIcon sx={{ fontSize: iconSize }} /></Avatar> </IconButton>
                                         <Box sx={{ textAlign: 'left', padding: '0.5rem', cursor: 'pointer', gap: '0.5rem' }}>
                                             <Typography className='userDivFont' sx={{ color: 'rgb(15,15,93)', fontWeight: 'normal', marginBottom: '2px' }}>{userTitle}</Typography>
                                             <Box sx={{ bgcolor: '#a0974f', width: 'max-content', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
